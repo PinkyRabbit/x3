@@ -1,0 +1,25 @@
+{
+  "name": "hack-it-4",
+  "version": "4.0.0",
+  "private": true,
+  "description": "My blog",
+  "author": "Mikita Melnikau<usesa@yandex.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.12.1"
+  },
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node ./app",
+    "lint": "eslint ./app --ext .js",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.2",
+    "prettier": "2.8.1"
+  }
+}
