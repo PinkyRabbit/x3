@@ -1,0 +1,21 @@
+version: "3.8"
+
+networks:
+  hack-it-nw:
+    driver: bridge
+
+services:
+  hack-it-app:
+    container_name: hack-it-app
+    build:
+      context: .
+      target: base
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+    volumes:
+      - ./app:/hack-it-up/app
+    ports:
+      - "8080:8080"
+    networks:
+      - hack-it-nw

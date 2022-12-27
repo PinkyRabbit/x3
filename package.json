@@ -11,8 +11,7 @@
   "main": "app/index.js",
   "scripts": {
     "start": "node ./app",
-    "lint": "eslint ./app --ext .js",
-    "prepare": "husky install"
+    "lint": "eslint ./app --ext .js"
   },
   "devDependencies": {
     "eslint": "^8.30.0",
@@ -23,6 +22,7 @@
     "prettier": "2.8.1"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2"
   }
 }
