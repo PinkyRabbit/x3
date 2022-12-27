@@ -1,3 +1,5 @@
+require("./db").connectionTest();
+
 const express = require("express");
 const app = express();
 

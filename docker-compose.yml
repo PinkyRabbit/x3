@@ -4,6 +4,9 @@ networks:
   hack-it-nw:
     driver: bridge
 
+volumes:
+  mongodb_data_container:
+
 services:
   hack-it-app:
     container_name: hack-it-app
@@ -13,9 +16,24 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=8080
+      - DB_CONNECTION_ADDRESS=mongodb:27017/hack-it
     volumes:
       - ./app:/hack-it-up/app
     ports:
       - "8080:8080"
     networks:
       - hack-it-nw
+    restart: always
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+      - "27018:27018"
+    volumes:
+      - mongodb_data_container:/data/db
+    networks:
+      - hack-it-nw
+    restart: unless-stopped
