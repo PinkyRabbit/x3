@@ -1,6 +1,6 @@
 const monk = require("monk");
 
-const { dbConnectionString, loggerLevel } = require("../config");
+const { dbConnectionString, isProduction } = require("../config");
 
 const connectionTest = () =>
   monk(dbConnectionString, {
@@ -10,15 +10,15 @@ const connectionTest = () =>
   });
 
 const options = {
-  loggerLevel,
+  loggerLevel: isProduction ? "error" : "debug",
 };
 
 module.exports = {
   connectionTest,
   mongodbId: (_id) => monk.id(_id),
+  dbConnectionString,
+  options,
   User: monk(dbConnectionString, options).get("user"),
   Post: monk(dbConnectionString, options).get("post"),
-  Category: monk(dbConnectionString, options).get("category"),
-  Tag: monk(dbConnectionString, options).get("tag"),
   Error: monk(dbConnectionString, options).get("error"),
 };

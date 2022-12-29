@@ -1,0 +1,119 @@
+{% from './_sections/navbar.twig' import navbar %}
+{% from './_sections/header.twig' import header %}
+{% from './_sections/footer.twig' import footer %}
+{% from './_sections/meta.twig' import meta %}
+{% from './_sections/pagedebug.twig' import pagedebug %}
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if description %}
+      <meta name="description" content="{{ description }}">
+    {% endif %}
+    {% if keywords %}
+      <meta name="keywords" content="{{ keywords }}">
+    {% endif %}
+
+    <title>{{ title ? 'hack-it-up.ru — ' ~ title : 'hack-it-up.ru *_*' }}</title>
+
+    <link rel="shortcut icon" href="/favicon.png">
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="/js/jquery-1.12.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      {{ navbar(categories, user, development, isAdmin) }}
+      {{ header(postimage) }}
+      {% block body %}{% endblock %}
+      <h1>{{ h1 ? h1 : 'Happy Hacking *_*' }}</h1>
+      <div class="content" id="main">
+        <div class="row">
+          {% if sidebar %}
+            <div class="col-xs-12 col-sm-9" id="content">
+              {% if category is not defined %}
+                {{ pagedebug(title, h1, description, keywords) }}
+              {% else %}
+                {{ meta(_id, tags, category, isAdmin) }}
+              {% endif %}
+              {% if messages is defined %}
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.type }}" role="alert" style="margin-bottom: 10px">{{ message.msg }}</div>
+                {% endfor %}
+              {% endif %}
+              {% block bodyblock %}{% endblock %}
+            </div>
+            <aside class="col-xs-12 col-sm-3">
+              <!-- subscribe -->
+              <h4>Подпишись:</h4>
+              <form method="post" action="/subscribe" id="subform">
+                <input type="hidden" value={{ _csrf }} name="_csrf">
+                <div class="input-group">
+                  <input type="email" name="email" class="form-control" id="subemail" placeholder="Ваш email...">
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-warning">
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <!-- subscribe -->
+
+              <!-- tags -->
+              <div class="list-group">
+                <h4>Случайные теги:</h4>
+                {% for tag in fiveRandomTags %}
+                  <a href="/tag/{{ tag.slug }}" class="list-group-item" title="{{ tag.name }}">{{ tag.name }}</a>
+                {% endfor %}
+              </div>
+              <!-- /tags -->
+
+              <!-- twitter -->
+              <a class="twitter-timeline"
+                data-tweet-limit="10"
+                href="https://twitter.com/pinkya_rabbit"
+                >
+                Tweets by @pinkya_rabbit
+                </a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              <!-- /twitter -->
+            </aside>
+          {% else %}
+            <div class="col-xs-12" id="content">
+                {% if messages is defined %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.type }}" role="alert" style="margin-bottom: 10px">{{ message.msg }}</div>
+                    {% endfor %}
+                {% endif %}
+                {{ pagedebug(title, h1, description, keywords) }}
+                {% block bodyblock %}{% endblock %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {{ footer() }}
+    <!-- scripts -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    {% if scripts.custom %}
+      {% for script in scripts.custom %}
+        <script src="{{ script }}"></script>
+      {% endfor %}
+    {% endif %}
+
+    {% if scripts.google %}
+      <script src="{{ scripts.google }}"></script>
+    {% endif %}
+  </body>
+</html>

@@ -11,6 +11,7 @@
   "main": "app/index.js",
   "scripts": {
     "start": "node ./app",
+    "dev": "nodemon --inspect app/index.js",
     "lint": "eslint ./app --ext .js"
   },
   "devDependencies": {
@@ -19,10 +20,22 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.2",
+    "nodemon": "^2.0.20",
     "prettier": "2.8.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "compression": "^1.7.4",
     "express": "^4.18.2",
-    "monk": "^7.3.4"
+    "express-session": "^1.17.3",
+    "helmet": "^6.0.1",
+    "log4js": "^6.7.1",
+    "monk": "^7.3.4",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "^2.5.0",
+    "twig": "^1.15.4",
+    "twitter": "^1.7.1"
   }
 }

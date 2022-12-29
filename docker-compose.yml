@@ -12,20 +12,22 @@ services:
     container_name: hack-it-app
     build:
       context: .
-      target: base
     environment:
       - NODE_ENV=development
       - PORT=8080
       - DB_CONNECTION_ADDRESS=mongodb:27017/hack-it
     volumes:
       - ./app:/hack-it-up/app
+      - ./public:/hack-it-up/public
     ports:
-      - "8080:8080"
+      - 8080:8080
+      - 9229:9229
     networks:
       - hack-it-nw
     restart: always
     depends_on:
       - mongodb
+    command: npm run dev
 
   mongodb:
     image: mongo:4.4
