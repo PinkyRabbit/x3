@@ -55,28 +55,15 @@
               {% block bodyblock %}{% endblock %}
             </div>
             <aside class="col-xs-12 col-sm-3">
-              <!-- subscribe -->
-              <h4>Подпишись:</h4>
-              <form method="post" action="/subscribe" id="subform">
-                <input type="hidden" value={{ _csrf }} name="_csrf">
-                <div class="input-group">
-                  <input type="email" name="email" class="form-control" id="subemail" placeholder="Ваш email...">
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <!-- subscribe -->
-
               <!-- tags -->
-              <div class="list-group">
-                <h4>Случайные теги:</h4>
-                {% for tag in fiveRandomTags %}
-                  <a href="/tag/{{ tag.slug }}" class="list-group-item" title="{{ tag.name }}">{{ tag.name }}</a>
-                {% endfor %}
-              </div>
+              {% if fiveRandomTags.length %}
+                <div class="list-group">
+                  <h4>Случайные теги:</h4>
+                  {% for tag in fiveRandomTags %}
+                    <a href="/tag/{{ tag.slug }}" class="list-group-item" title="{{ tag.name }}">{{ tag.name }}</a>
+                  {% endfor %}
+                </div>
+              {% endif %}
               <!-- /tags -->
 
               <!-- twitter -->

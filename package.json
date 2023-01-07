@@ -11,7 +11,7 @@
   "main": "app/index.js",
   "scripts": {
     "start": "node ./app",
-    "dev": "nodemon --inspect app/index.js",
+    "dev": "nodemon -e js,twig -w app --inspect app/index.js",
     "lint": "eslint ./app --ext .js"
   },
   "devDependencies": {
